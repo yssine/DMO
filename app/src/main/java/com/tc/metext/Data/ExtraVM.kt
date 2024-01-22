@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-
-
-class SumVM: ViewModel() {
+class ExtraVM: ViewModel() {
     var outxt by mutableStateOf("")
         private set
 
@@ -18,5 +16,4 @@ class SumVM: ViewModel() {
 //        println(outxt)
 
     }
-
 }

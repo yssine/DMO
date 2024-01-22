@@ -13,13 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -60,11 +56,11 @@ class MainActivity : ComponentActivity() {
                         CenterAlignedTopAppBar(
                             title = { Text("MeText",fontFamily = Salsa,) },
                             colors = TopAppBarDefaults.smallTopAppBarColors(containerColor =  MaterialTheme.colorScheme.secondaryContainer ),
-                            navigationIcon = {
-                                IconButton(onClick = {/* Do Something*/ }) {
-                                    Icon(Icons.Filled.Menu, null)
-                                }
-                            },
+//                            navigationIcon = {
+//                                IconButton(onClick = {/* Do Something*/ }) {
+//                                    Icon(Icons.Filled.Menu, null)
+//                                }
+//                            },
 //                            actions = {
 ////                                IconButton(onClick = {/* Do Something*/ }) {
 ////                                    Icon(Icons.Filled.Share, null)

@@ -36,9 +36,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.tc.metext.Data.SumVM
+import com.tc.metext.Data.ExtraVM
 
-private val svm = SumVM()
+
+private val evm = ExtraVM()
 
 //val Salsa = FontFamily(Font(R.font.salsa_regular))
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,7 +96,7 @@ fun ExtraScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            svm.treatForAPI(inputText)
+            evm.treatForAPI(inputText)
         }) {
             Text(
                 text = "Extract Feelings",
@@ -111,7 +112,7 @@ fun ExtraScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = svm.outxt,
+            text = evm.outxt,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(300.dp,300.dp)
@@ -124,7 +125,7 @@ fun ExtraScreen(navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // Copy Button
-            Button(onClick = { clipboardManager.setText(AnnotatedString((svm.outxt)))
+            Button(onClick = { clipboardManager.setText(AnnotatedString((evm.outxt)))
             }) {
                 Text(
                     text = "Copy to clipboard",
