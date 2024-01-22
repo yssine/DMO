@@ -37,9 +37,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.tc.metext.Data.SumVM
 import com.tc.metext.R
+import kotlinx.coroutines.launch
 
 private val svm = SumVM()
 
@@ -120,8 +122,8 @@ fun SumScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            svm.treatForAPI(inputText)
+        Button(onClick = {svm.viewModelScope.launch {svm.treatForAPI(inputText)}
+        //            svm.treatForAPI(inputText)
         }) {
             Text(
                 text = "Summarize",

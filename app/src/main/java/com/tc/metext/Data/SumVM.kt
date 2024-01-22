@@ -4,19 +4,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.tc.metext.Domain.SumModel
 
 
-
+private val sm= SumModel()
 class SumVM: ViewModel() {
     var outxt by mutableStateOf("")
         private set
 
 
-    fun treatForAPI(txt:String){
+    suspend fun treatForAPI(txt:String){
 
-        outxt=txt.replace('\n', ' ')
+        var ftx=txt.replace('\n', ' ')
 //        println(outxt)
-
+        outxt= sm.summarizeText(ftx)
     }
 
 }

@@ -14,14 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,13 +31,10 @@ import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.tc.metext.Data.DTTVM
-import com.tc.metext.Domain.DTTModel
 import kotlinx.coroutines.launch
 
 
@@ -51,13 +45,22 @@ private val dvm = DTTVM()
 fun DTTScreen(navController: NavHostController) {
     var inputText by remember { mutableStateOf("") }
     var outputText by remember { mutableStateOf("") }
-    val context = LocalContext.current
-    var result by remember { mutableStateOf("") }
-    val coroutineScope = rememberCoroutineScope()
+
 
 
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
-
+    val context = LocalContext.current
+    var result by remember { mutableStateOf("") }
+    val coroutineScope = rememberCoroutineScope()
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
+        // Handle the returned Uri
+        coroutineScope.launch {
+            val response = uri?.let { dvm.HandleFile(context, it) }
+            if (response != null) {
+                result = response.toString() // Update the result state with the response
+            }
+        }
+    }
 
 
 
@@ -76,42 +79,17 @@ fun DTTScreen(navController: NavHostController) {
             fontFamily = Salsa,
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+//        Spacer(modifier = Modifier.height(10.dp))
 
-        TextField(
-            value = inputText,
-            onValueChange = {
-                inputText = it
-                // Perform any processing or transformation based on the input
-                outputText = "Processed: $it"
-            },
-            label = { Text("Input Text") },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Text
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    // You can handle the 'Done' action if needed
-                }
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .heightIn(160.dp,160.dp)
-        )
+//
         Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = {
-            dvm.treatForAPI(inputText)
-        }) {
-            Text(
-                text = "Extract Text",
-            )
+        Button(onClick = { launcher.launch("application/pdf") }) {
+            Text("Extract Text")
         }
-
-
         Spacer(modifier = Modifier.height(16.dp))
+
+
+
         Text(
             text = "Result output:",
             fontSize = 20.sp,
@@ -122,13 +100,14 @@ fun DTTScreen(navController: NavHostController) {
             text = dvm.outxt,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(300.dp,300.dp)
+                .heightIn(485.dp,485.dp)
                 .padding(bottom = 16.dp)
                 .verticalScroll(rememberScrollState())
                 .background(MaterialTheme.colorScheme.onTertiary),
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(3.dp),
+//            verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // Copy Button

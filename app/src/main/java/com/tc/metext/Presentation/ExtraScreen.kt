@@ -24,19 +24,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.tc.metext.Data.ExtraVM
+import kotlinx.coroutines.launch
 
 
 private val evm = ExtraVM()
@@ -49,7 +51,7 @@ fun ExtraScreen(navController: NavHostController) {
     var outputText by remember { mutableStateOf("") }
     var clipboardText by remember { mutableStateOf("") }
 
-    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
 
@@ -95,8 +97,10 @@ fun ExtraScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
+        Button(onClick = {evm.viewModelScope.launch {
             evm.treatForAPI(inputText)
+        }
+//
         }) {
             Text(
                 text = "Extract Feelings",
