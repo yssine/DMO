@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1038917166480",
+    "project_id": "metext-7113a",
+    "storage_bucket": "metext-7113a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038917166480:android:e8c60bf22341e328ef7f15",
+        "android_client_info": {
+          "package_name": "com.tc.metext"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9zJK04KCQVRKc4lDDeQdF6AHqpdodhU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

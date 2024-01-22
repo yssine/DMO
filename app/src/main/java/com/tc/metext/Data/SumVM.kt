@@ -15,7 +15,7 @@ class SumVM: ViewModel() {
 
     suspend fun treatForAPI(txt:String){
 
-        var ftx=txt.replace('\n', ' ')
+        var ftx=txt.replace('\n', ' ').replace('"',' ').replace('<',' ')
 //        println(outxt)
         outxt= sm.summarizeText(ftx)
     }

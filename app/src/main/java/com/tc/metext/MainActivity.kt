@@ -34,7 +34,9 @@ import com.tc.metext.Presentation.Salsa
 import com.tc.metext.Presentation.Screen
 import com.tc.metext.Presentation.SumScreen
 import com.tc.metext.ui.theme.MeTextTheme
-
+import com.google.firebase.Firebase
+import com.google.firebase.appdistribution.InterruptionLevel
+import com.google.firebase.appdistribution.appDistribution
 
 
 
@@ -43,6 +45,9 @@ import com.tc.metext.ui.theme.MeTextTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Firebase.appDistribution.showFeedbackNotification(
+            "Hi",
+            InterruptionLevel.HIGH)
         setContent {
             MeTextTheme {
                 
